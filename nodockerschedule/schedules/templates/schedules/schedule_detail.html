@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Детали расписания</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50; /* default color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        .button.pink {
+            background-color: pink;
+        }
+        .button.light-green {
+            background-color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <h1>Расписание: {{ schedule.password }}</h1>
+    <div>
+        {% for event in events %}
+            <button class="button {% if event.who %}pink{% else %}light-green{% endif %}" onclick="editEvent({{ event.id }})">{{ event.when }} - {{ event.where }} - {{ event.who }}</button>
+        {% endfor %}
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ event_form.as_p }}
+        <button type="submit" name="new_event" class="button">Сохранить</button>
+    </form>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button">Сохранить изменения</button>
+    </form>
+    <script>
+        function editEvent(eventId) {
+            // Logic to populate the event form for editing
+        }
+    </script>
+</body>
+</html>
